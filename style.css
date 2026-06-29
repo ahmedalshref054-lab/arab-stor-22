@@ -1,0 +1,437 @@
+/* إعدادات الخطوط والألوان العامة */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    padding-bottom: 80px; /* مساحة لعدم تغطية الشريط السفلي للمحتوى */
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #ffffff;
+    min-height: 100vh;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* الهيدر */
+header {
+    background: #ffffff;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: #e4a134;
+}
+
+/* السلايدر الاحترافي */
+.slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+.slides {
+    display: table;
+    width: 200%;
+    transition: transform 0.4s ease-in-out;
+}
+.slide {
+    display: table-cell;
+    width: 50%;
+    vertical-align: middle;
+}
+.slide img {
+    width: 100%;
+    display: block;
+}
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 16px;
+}
+.slider-btn.prev { right: 10px; }
+.slider-btn.next { left: 10px; }
+.slider-counter {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 13px;
+    direction: ltr;
+}
+
+/* تفاصيل المنتج */
+.product-details {
+    padding: 20px;
+}
+.category-tag {
+    display: inline-block;
+    background: #f0f0f0;
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+}
+.product-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.product-subtitle {
+    font-size: 15px;
+    color: #777;
+    margin-bottom: 15px;
+}
+.price-row {
+    margin-bottom: 15px;
+}
+.current-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #e4a134;
+    margin-left: 10px;
+}
+.old-price {
+    font-size: 16px;
+    color: #999;
+    text-decoration: line-through;
+}
+.cta-trigger-btn {
+    background: #e4a134;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(228, 161, 52, 0.2);
+}
+
+/* الوصف */
+.tab-header {
+    border-bottom: 2px solid #f0f0f0;
+    margin: 0 20px;
+}
+.tab-title {
+    display: inline-block;
+    padding: 10px 15px;
+    border-bottom: 2px solid #e4a134;
+    font-weight: 700;
+}
+.description-content {
+    padding: 20px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* صندوق العروض النار */
+.discount-fire-box {
+    margin: 20px;
+    border: 2px dashed #ff4d4d;
+    background: #fff5f5;
+    border-radius: 10px;
+    padding: 15px;
+    position: relative;
+}
+.fire-badge {
+    position: absolute;
+    top: -12px;
+    right: 15px;
+    background: #ff4d4d;
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.fire-box-title {
+    font-weight: 700;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #ff4d4d;
+}
+.deal-row {
+    display: table;
+    width: 100%;
+    margin-bottom: 8px;
+}
+.deal-name, .deal-price {
+    display: table-cell;
+}
+.deal-price {
+    text-align: left;
+    font-weight: 700;
+}
+
+/* كارت الدفع والشراء */
+.checkout-card {
+    margin: 20px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.card-badge {
+    background: #111;
+    color: #fff;
+    text-align: center;
+    padding: 8px;
+    font-size: 13px;
+    font-weight: bold;
+}
+.checkout-layout-grid {
+    padding: 20px;
+}
+
+/* خيارات العروض داخل الكارت */
+.offer-selection-wrapper {
+    margin-bottom: 20px;
+}
+.offer-option-row {
+    display: table;
+    width: 100%;
+    background: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.offer-option-label, .offer-radio {
+    display: table-cell;
+    vertical-align: middle;
+}
+.offer-radio {
+    text-align: left;
+    width: 20px;
+}
+.offer-subtext {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+    padding-right: 5px;
+}
+
+/* العداد للقطع الإضافية */
+.counter-section {
+    display: table;
+    width: 100%;
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.counter-label, .counter-controls {
+    display: table-cell;
+    vertical-align: middle;
+}
+.counter-controls {
+    text-align: left;
+}
+.counter-btn {
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.counter-value {
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* الـ Slots الديناميكية للقطع المحددة */
+.dynamic-slot {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #fafafa;
+}
+.slot-title {
+    font-weight: 700;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    color: #e4a134;
+}
+.selection-instruction {
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+.current-info-text {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+/* شبكة اختيار الصور الملونة */
+.image-selector-grid {
+    display: table;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.color-img-option {
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.color-img-option img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.color-img-option.active {
+    border-color: #e4a134;
+}
+
+/* أزرار المقاسات الحبة الكبسولة */
+.size-buttons-container {
+    margin-top: 5px;
+}
+.size-pill-btn {
+    display: block;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin-bottom: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: right;
+}
+.size-pill-btn.active {
+    background: #e4a134;
+    color: #fff;
+    border-color: #e4a134;
+}
+
+/* حقول استمارة الطلب */
+.checkout-form input, .checkout-form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+}
+.submit-order-btn {
+    width: 100%;
+    background: #25d366; /* لون أخضر جذاب لطلب فوري */
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+}
+
+/* معاينة الفاتورة السايد بار الحرة */
+.invoice-preview-card {
+    background: #f8fafd;
+    border: 1px solid #d0e0f5;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+}
+.invoice-preview-header {
+    font-weight: 700;
+    color: #2b6cb0;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+.invoice-detail-item {
+    display: table;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+.invoice-detail-item span {
+    display: table-cell;
+}
+.invoice-detail-item span:last-child {
+    text-align: left;
+    font-weight: bold;
+}
+.invoice-items-text-list {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.5;
+}
+.invoice-divider {
+    border: 0;
+    border-top: 1px solid #d0e0f5;
+    margin: 10px 0;
+}
+.total-item {
+    font-size: 16px;
+    color: #2b6cb0;
+}
+
+/* الشريط السفلي الثابت المقيد بدقة لتفادي المشكلة */
+.sticky-bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 12px 20px;
+    box-shadow: 0 -3px 15px rgba(0,0,0,0.1);
+    z-index: 9999;
+    height: auto; /* مهم جداً لعدم الارتفاع الحاد */
+}
+.sticky-btn {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 12px;
+    background-color: #111111;
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+}

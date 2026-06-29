@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طقم بحر بسكوته - عرب استور</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo">عرب ستور</div>
+    </header>
+
+    <div class="slider-container" id="main-slider">
+        <button class="slider-btn prev" onclick="moveSlide(-1)"><i class="fas fa-chevron-right"></i></button>
+        <div class="slides" id="slide-row">
+            <div class="slide"><img src="2.jpg" alt="طقم أوف وايت"></div>
+            <div class="slide"><img src="1.jpg" alt="طقم أسود"></div>
+        </div>
+        <button class="slider-btn next" onclick="moveSlide(1)"><i class="fas fa-chevron-left"></i></button>
+        <div class="slider-counter" id="slide-num">2 / 1</div>
+    </div>
+
+    <div class="product-details">
+        <div class="category-tag">ملابس رجالي هاف</div>
+        <div class="product-title">طقم بحر بسكوته</div>
+        <div class="product-subtitle">طقم رجالي قميص + شورت</div>
+        <div class="price-row">
+            <span class="current-price">730 ج.م</span>
+            <span class="old-price">760 ج.م</span>
+        </div>
+        <div class="cta-trigger-btn" onclick="scrollToCheckout()">اضغط هنا للشراء</div>
+    </div>
+
+    <div class="tab-header">
+        <div class="tab-title">الوصف</div>
+    </div>
+    <div class="description-content">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #111;">😉 جاهز لصيف مختلف؟ طقم البحر البسكوته وصل 🔥</p>
+        <p style="margin-bottom: 15px;">ستايل شيك وخامة مريحة تهوية ممتازة تناسب الحر والرطوبة ☀️<br>ينفع خروجات – سفر – مصيف – كافيهات 👌</p>
+        <ul style="list-style: none; margin-bottom: 20px;">
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: #e4a134;"></i> خامة بسكوته وافل مربعات فخمة</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: #e4a134;"></i> خفيف ومريح طوال اليوم</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: #e4a134;"></i> متوفر أسود وأوف وايت</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: #e4a134;"></i> لوك كامل جاهز بدون تفكير</li>
+        </ul>
+        <p style="font-weight: 600; margin-bottom: 10px;"><i class="fas fa-tags"></i> المقاسات المتاحة: L / XL / XXL</p>
+        <p style="font-weight: 600; margin-bottom: 20px;"><i class="fas fa-truck"></i> 📦 التوصيل لجميع المحافظات</p>
+    </div>
+
+    <div class="discount-fire-box">
+        <div class="fire-badge"><i class="fas fa-fire"></i> عرض نار</div>
+        <div class="fire-box-title">أسعار العروض الحالية ولفترة محدودة جداً</div>
+        <div class="deal-row">
+            <span class="deal-name">عرض القطعة الواحدة</span>
+            <span class="deal-price"><del>760 ج.م</del> 730 ج.م</span>
+        </div>
+        <div class="deal-row">
+            <span class="deal-name">عرض القطعتين (توفير ممتاز)</span>
+            <span class="deal-price"><del>1520 ج.م</del> 1400 ج.م</span>
+        </div>
+    </div>
+
+    <div class="checkout-card" id="checkout-section">
+        <div class="card-badge top">أشتري الآن قبل ارتفاع الأسعار</div>
+
+        <div class="checkout-layout-grid">
+            <div class="checkout-main-column">
+                <div class="offer-selection-wrapper">
+                    <div class="offer-option-row" onclick="setOfferType('single')">
+                        <div class="offer-option-label">أشتري قطعه بـ 730 جنيه</div>
+                        <input type="radio" class="offer-radio" name="offer-type" id="radio-single" checked>
+                    </div>
+                    <div class="offer-subtext">خصم مميز لفترة محدودة</div>
+
+                    <div class="offer-option-row" onclick="setOfferType('multi')">
+                        <div class="offer-option-label">عرض الأكثر من قطعة</div>
+                        <input type="radio" class="offer-radio" name="offer-type" id="radio-multi">
+                    </div>
+                    <div class="offer-subtext">يبدأ من قطعتين بسعر 1400 جنيه وكل قطعة إضافية بـ 700 جنيه فقط!</div>
+                </div>
+
+                <div class="counter-section" id="counter-box" style="display: none;">
+                    <div class="counter-label">حدد عدد القطع المطلوبة:</div>
+                    <div class="counter-controls">
+                        <button type="button" class="counter-btn" onclick="changeQuantity(-1)">-</button>
+                        <div class="counter-value" id="qty-val">2</div>
+                        <button type="button" class="counter-btn" onclick="changeQuantity(1)">+</button>
+                    </div>
+                </div>
+
+                <div id="dynamic-slots-container"></div>
+
+                <form class="checkout-form" id="orderForm" onsubmit="handleFormSubmit(event)">
+                    <input type="text" id="client-name" placeholder="الاسم بالكامل" required>
+                    <input type="text" id="client-phone" placeholder="رقم الهاتف" required>
+                    
+                    <select id="client-governorate" onchange="calculateTotal()" required>
+                        <option value="" disabled selected>اختر المحافظة لتحديد تكلفة الشحن</option>
+                        <option value="القاهرة">القاهرة</option>
+                        <option value="الجيزة">الجيزة</option>
+                        <option value="الإسكندرية">الإسكندرية</option>
+                        <option value="القليوبية">القليوبية</option>
+                        <option value="الدقهلية">الدقهلية</option>
+                        <option value="الشرقية">الشرقية</option>
+                        <option value="المنوفية">المنوفية</option>
+                        <option value="الغربية">الغربية</option>
+                        <option value="دمياط">دمياط</option>
+                        <option value="البحيرة">البحيرة</option>
+                        <option value="كفر الشيخ">كفر الشيخ</option>
+                        <option value="بورسعيد">بورسعيد</option>
+                        <option value="الإسماعيلية">الإسماعيلية</option>
+                        <option value="السويس">السويس</option>
+                        <option value="الفيوم">الفيوم</option>
+                        <option value="بني سويف">بني سويف</option>
+                    </select>
+
+                    <input type="text" id="client-address" placeholder="العنوان بالتفصيل" required>
+
+                    <input type="hidden" id="final-order-summary" name="order_summary">
+                    <input type="hidden" id="final-total-price" name="total_price" value="730">
+                    
+                    <button type="submit" class="submit-order-btn">اضغط هنا للطلب والدفع عند الاستلام</button>
+                </form>
+            </div>
+
+            <div class="checkout-sidebar-column">
+                <div class="invoice-preview-card" id="invoice-preview-section">
+                    <div class="invoice-preview-header"><i class="fas fa-file-invoice-dollar"></i> معاينة الفاتورة الإجمالية</div>
+                    <div class="invoice-preview-body">
+                        <div class="invoice-detail-item">
+                            <span>القطع المحددة:</span>
+                            <span id="invoice-items-list" class="invoice-items-text-list">جاري التحديد...</span>
+                        </div>
+                        <div class="invoice-detail-item">
+                            <span>سعر القطع قبل العرض:</span>
+                            <span id="invoice-subtotal-price">0 ج.م</span>
+                        </div>
+                        <div class="invoice-detail-item" id="invoice-discount-row" style="display: none; color: red;">
+                            <span>المبلغ الموفر مع العرض:</span>
+                            <span id="invoice-discount-value">-0 ج.م</span>
+                        </div>
+                        <div class="invoice-detail-item">
+                            <span>تكاليف شحن المحافظة:</span>
+                            <span id="invoice-shipping-price">حدد المحافظة</span>
+                        </div>
+                        <hr class="invoice-divider">
+                        <div class="invoice-detail-item total-item">
+                            <span>الإجمالي النهائي المطلوب:</span>
+                            <span id="invoice-final-total">0 ج.م</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-badge bottom">أشتري الآن قبل ارتفاع الأسعار</div>
+    </div>
+</div>
+
+<div class="sticky-bottom-bar">
+    <button class="sticky-btn" onclick="scrollToCheckout()">اضغط هنا للشراء فوراً</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
