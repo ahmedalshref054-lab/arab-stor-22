@@ -6,24 +6,25 @@
     <title>جاري تأكيد طلبك...</title>
     
     <script>
-      // 1. كود ذكي بيقرأ رقم البيكسل من رابط الحملة تلقائياً
+      // قراءة البرامترز من الرابط فوق
       const urlParams = new URLSearchParams(window.location.search);
-      // لو العميل حط في الحملة بيكسل هيقرأه، لو محطش هيشتغل على بيكسل احتياطي
-      const pixelId = urlParams.get('pixel') || '123456789012345'; 
+      const pixelId = urlParams.get('pixel'); 
+      const whatsappUrl = urlParams.get('next');
 
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      
-      // تشغيل البيكسل بالرقم اللي جاي من الحملة 
-      fbq('init', pixelId); 
-      // تسجيل كلمة الشراء (Purchase) اللي طالبها
-      fbq('track', 'Purchase'); 
+      // الكود هيشتغل ويتبع الشراء فقط لو العميل حاطط رقم بيكسل حقيقي في رابط حملته
+      if (pixelId && pixelId !== 'null' && pixelId.trim() !== '') {
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          
+          fbq('init', pixelId); 
+          fbq('track', 'Purchase'); 
+      }
     </script>
 </head>
 <body style="background-color: #f8fafc; font-family: system-ui, sans-serif; text-align: center; padding-top: 15%;">
@@ -40,13 +41,11 @@
 
     <script>
         window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const whatsappUrl = urlParams.get('next');
-            
             if (whatsappUrl) {
+                // تأخير ثانية لضمان إرسال بيانات البيكسل أولاً ثم التحويل
                 setTimeout(() => {
                     window.location.href = whatsappUrl;
-                }, 800); 
+                }, 1000); 
             }
         };
     </script>

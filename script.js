@@ -74,9 +74,8 @@ function renderSlots(count) {
 
     for(let i = 1; i <= count; i++) {
         let defaultColor = (savedSelections[i-1]) ? savedSelections[i-1].color : 'اسود';
-        let defaultSize = (savedSelections[i-1]) ? savedSelections[i-1].size : '✔️ L';
+        let defaultSize = (savedSelections[i-1]) ? savedSelections[i-1].size : 'L (من 55 لـ 65 كيلو)';
 
-        // 🆕 تم تعديل نصوص الأوزان والمقاسات هنا بناءً على طلب العميل بالملي
         const slotHtml = `
             <div class="dynamic-slot" id="slot-item-${i}">
                 <div class="slot-title">القطعة رقم ${i}</div>
@@ -100,13 +99,13 @@ function renderSlots(count) {
                 <div class="current-info-text" id="size-label-${i}">المقاس الحالي: ${defaultSize}</div>
                 
                 <div class="size-buttons-container" id="size-container-${i}">
-                    <button type="button" class="size-pill-btn ${defaultSize === '✔️ L' || defaultSize.includes('L') ? 'active' : ''}" onclick="selectSlotSize(${i}, 'L (من 55 لـ 65 كيلو)', this)">
+                    <button type="button" class="size-pill-btn ${defaultSize.includes('L (من 55') ? 'active' : ''}" onclick="selectSlotSize(${i}, 'L (من 55 لـ 65 كيلو)', this)">
                         ✔️ L: من 55 لـ 65 كجم
                     </button>
-                    <button type="button" class="size-pill-btn ${defaultSize.includes('XL') && !defaultSize.includes('XXL') ? 'active' : ''}" onclick="selectSlotSize(${i}, 'XL (من 65 لـ 75 كيلو)', this)">
+                    <button type="button" class="size-pill-btn ${defaultSize.includes('XL (من 65') ? 'active' : ''}" onclick="selectSlotSize(${i}, 'XL (من 65 لـ 75 كيلو)', this)">
                         ✔️ XL: من 65 لـ 75 كجم
                     </button>
-                    <button type="button" class="size-pill-btn ${defaultSize.includes('XXL') ? 'active' : ''}" onclick="selectSlotSize(${i}, 'XXL (من 75 لـ 90 كيلو)', this)">
+                    <button type="button" class="size-pill-btn ${defaultSize.includes('XXL (من 75') ? 'active' : ''}" onclick="selectSlotSize(${i}, 'XXL (من 75 لـ 90 كيلو)', this)">
                         ✔️ XXL: من 75 لـ 90 كجم
                     </button>
                 </div>
@@ -233,7 +232,7 @@ function handleFormSubmit(event) {
     let shippingCost = (govSelect.value === 'القاهرة' || govSelect.value === 'الجيزة') ? 70 : 100;
     let finalTotal = itemsPrice + shippingCost;
 
-    // تجميع تفاصيل القطع والألوان والمقاسات المعدلة برمجياً بالأوزان الجديدة
+    // تجميع تفاصيل القطع والألوان والمقاسات
     let itemsDetailsList = [];
     for(let i = 1; i <= count; i++) {
         let col = document.getElementById(`color-val-${i}`).value;
@@ -255,15 +254,19 @@ function handleFormSubmit(event) {
               "• سعر القطع: " + itemsPrice + " ج.م بدلاً من " + originalPrice + " ج.م\n" +
               "• مصاريف التوصيل: " + shippingCost + " ج.م\n" +
               "• المبلغ الموفر للعميل: −" + savings + " ج.م 🎁\n" +
-              "• *العائد الإجمالي الإجمالي المطلوب: " + finalTotal + " ج.م*\n\n" +
+              "• *الإجمالي النهائي المطلوب من المندوب: " + finalTotal + " ج.م*\n\n" +
               "⏳ برجاء مراجعة البيانات وتأكيد التجهيز الفوري للطلب للشحن.\n" +
               "__أُرسلت تلقائياً من صفحة طقم بحر بسكوته__";
 
     // تشفير الرسالة وتجهيز رابط سيرفر الواتساب الرسمي
     let targetWhatsappUrl = "https://api.whatsapp.com/send?phone=" + WHATSAPP_NUMBER + "&text=" + encodeURIComponent(msg);
     
-    // 🔀 التحويل الذكي لصفحة الـ Purchase مع تمرير رابط الواتساب كـ Parameter ليلقطه البيكسل
-    window.location.href = `purchase.html?next=${encodeURIComponent(targetWhatsappUrl)}`;
+    // 🆕 لقط رقم البيكسل اللي العميل حاطه في لينك الإعلان الرئيسي للموقع (إن وُجد)
+    const currentParams = new URLSearchParams(window.location.search);
+    const currentPixel = currentParams.get('pixel') || '';
+
+    // 🔀 التحويل الذكي لصفحة الـ Purchase مع تمرير رقم البيكسل ورابط الواتساب معاً كـ Parameters
+    window.location.href = `purchase.html?pixel=${currentPixel}&next=${encodeURIComponent(targetWhatsappUrl)}`;
 }
 
 // تشغيل البناء المبدئي عند اكتمال تحميل عناصر الصفحة بأمان
