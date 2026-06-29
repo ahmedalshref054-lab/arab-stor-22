@@ -76,6 +76,7 @@ function renderSlots(count) {
         let defaultColor = (savedSelections[i-1]) ? savedSelections[i-1].color : 'اسود';
         let defaultSize = (savedSelections[i-1]) ? savedSelections[i-1].size : '✔️ L';
 
+        // 🆕 تم تعديل نصوص الأوزان والمقاسات هنا بناءً على طلب العميل بالملي
         const slotHtml = `
             <div class="dynamic-slot" id="slot-item-${i}">
                 <div class="slot-title">القطعة رقم ${i}</div>
@@ -99,14 +100,14 @@ function renderSlots(count) {
                 <div class="current-info-text" id="size-label-${i}">المقاس الحالي: ${defaultSize}</div>
                 
                 <div class="size-buttons-container" id="size-container-${i}">
-                    <button type="button" class="size-pill-btn ${defaultSize === '✔️ L' ? 'active' : ''}" onclick="selectSlotSize(${i}, '✔️ L', this)">
-                        ✔️ L: من 55 لـ 70 كجم
+                    <button type="button" class="size-pill-btn ${defaultSize === '✔️ L' || defaultSize.includes('L') ? 'active' : ''}" onclick="selectSlotSize(${i}, 'L (من 55 لـ 65 كيلو)', this)">
+                        ✔️ L: من 55 لـ 65 كجم
                     </button>
-                    <button type="button" class="size-pill-btn ${defaultSize === '✔️ XL' ? 'active' : ''}" onclick="selectSlotSize(${i}, '✔️ XL', this)">
-                        ✔️ XL: من 70 لـ 80 كجم
+                    <button type="button" class="size-pill-btn ${defaultSize.includes('XL') && !defaultSize.includes('XXL') ? 'active' : ''}" onclick="selectSlotSize(${i}, 'XL (من 65 لـ 75 كيلو)', this)">
+                        ✔️ XL: من 65 لـ 75 كجم
                     </button>
-                    <button type="button" class="size-pill-btn ${defaultSize === '✔️ 2XL' ? 'active' : ''}" onclick="selectSlotSize(${i}, '✔️ 2XL', this)">
-                        ✔️ 2XL: من 80 لـ 95 كجم
+                    <button type="button" class="size-pill-btn ${defaultSize.includes('XXL') ? 'active' : ''}" onclick="selectSlotSize(${i}, 'XXL (من 75 لـ 90 كيلو)', this)">
+                        ✔️ XXL: من 75 لـ 90 كجم
                     </button>
                 </div>
             </div>
@@ -182,10 +183,10 @@ function calculateTotal() {
         const sizeEl = document.getElementById(`size-val-${i}`);
         
         let col = colorEl ? colorEl.value : 'اسود';
-        let siz = sizeEl ? sizeEl.value : '✔️ L';
+        let siz = sizeEl ? sizeEl.value : 'L';
         siz = siz.replace('✔️ ', ''); 
 
-        itemsSummaryHtml += `قطعة ${i} (${col} - مقاس ${siz})<br>`;
+        itemsSummaryHtml += `قطعة ${i} (${col} - ${siz})<br>`;
     }
 
     const itemsListEl = document.getElementById('invoice-items-list');
@@ -202,7 +203,7 @@ function calculateTotal() {
     
     if(savings > 0 && discountRow && discountValueEl) {
         discountRow.style.display = 'flex';
-        discountValueEl.innerText = `-${savings} ج.m`;
+        discountValueEl.innerText = `-${savings} ج.م`;
     } else if (discountRow) {
         discountRow.style.display = 'none';
     }
@@ -232,12 +233,12 @@ function handleFormSubmit(event) {
     let shippingCost = (govSelect.value === 'القاهرة' || govSelect.value === 'الجيزة') ? 70 : 100;
     let finalTotal = itemsPrice + shippingCost;
 
-    // تجميع تفاصيل القطع والألوان والمقاسات
+    // تجميع تفاصيل القطع والألوان والمقاسات المعدلة برمجياً بالأوزان الجديدة
     let itemsDetailsList = [];
     for(let i = 1; i <= count; i++) {
         let col = document.getElementById(`color-val-${i}`).value;
         let siz = document.getElementById(`size-val-${i}`).value.replace('✔️ ', '');
-        itemsDetailsList.push(`القطعة ${i}: [لون ${col} - مقاس ${siz}]`);
+        itemsDetailsList.push(`   القطعة ${i}: [لون ${col} - مقاس ${siz}]`);
     }
 
     // بناء نص رسالة الواتساب الاحترافية والمميزة
@@ -254,7 +255,7 @@ function handleFormSubmit(event) {
               "• سعر القطع: " + itemsPrice + " ج.م بدلاً من " + originalPrice + " ج.م\n" +
               "• مصاريف التوصيل: " + shippingCost + " ج.م\n" +
               "• المبلغ الموفر للعميل: −" + savings + " ج.م 🎁\n" +
-              "• *الإجمالي النهائي المطلوب من المندوب: " + finalTotal + " ج.م*\n\n" +
+              "• *العائد الإجمالي الإجمالي المطلوب: " + finalTotal + " ج.م*\n\n" +
               "⏳ برجاء مراجعة البيانات وتأكيد التجهيز الفوري للطلب للشحن.\n" +
               "__أُرسلت تلقائياً من صفحة طقم بحر بسكوته__";
 
