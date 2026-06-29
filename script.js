@@ -202,7 +202,7 @@ function calculateTotal() {
     
     if(savings > 0 && discountRow && discountValueEl) {
         discountRow.style.display = 'flex';
-        discountValueEl.innerText = `-${savings} ج.م`;
+        discountValueEl.innerText = `-${savings} ج.m`;
     } else if (discountRow) {
         discountRow.style.display = 'none';
     }
@@ -211,7 +211,7 @@ function calculateTotal() {
     if (finalTotalInput) finalTotalInput.value = finalTotal;
 }
 
-// معالجة الإرسال النهائي وتجميع البيانات وإرسالها للواتساب
+// 🔥 معالجة الإرسال النهائي وتجميع البيانات والتوجيه لصفحة الـ Purchase والبيكسل
 function handleFormSubmit(event) {
     event.preventDefault();
     
@@ -258,9 +258,11 @@ function handleFormSubmit(event) {
               "⏳ برجاء مراجعة البيانات وتأكيد التجهيز الفوري للطلب للشحن.\n" +
               "__أُرسلت تلقائياً من صفحة طقم بحر بسكوته__";
 
-    // تشفير الرسالة والتوجيه الفوري إلى رابط سيرفر الواتساب الرسمي
-    let targetUrl = "https://api.whatsapp.com/send?phone=" + WHATSAPP_NUMBER + "&text=" + encodeURIComponent(msg);
-    window.location.href = targetUrl;
+    // تشفير الرسالة وتجهيز رابط سيرفر الواتساب الرسمي
+    let targetWhatsappUrl = "https://api.whatsapp.com/send?phone=" + WHATSAPP_NUMBER + "&text=" + encodeURIComponent(msg);
+    
+    // 🔀 التحويل الذكي لصفحة الـ Purchase مع تمرير رابط الواتساب كـ Parameter ليلقطه البيكسل
+    window.location.href = `purchase.html?next=${encodeURIComponent(targetWhatsappUrl)}`;
 }
 
 // تشغيل البناء المبدئي عند اكتمال تحميل عناصر الصفحة بأمان

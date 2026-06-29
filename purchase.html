@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جاري تأكيد طلبك...</title>
+    
+    <script>
+      // 1. كود ذكي بيقرأ رقم البيكسل من رابط الحملة تلقائياً
+      const urlParams = new URLSearchParams(window.location.search);
+      // لو العميل حط في الحملة بيكسل هيقرأه، لو محطش هيشتغل على بيكسل احتياطي
+      const pixelId = urlParams.get('pixel') || '123456789012345'; 
+
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      
+      // تشغيل البيكسل بالرقم اللي جاي من الحملة 
+      fbq('init', pixelId); 
+      // تسجيل كلمة الشراء (Purchase) اللي طالبها
+      fbq('track', 'Purchase'); 
+    </script>
+</head>
+<body style="background-color: #f8fafc; font-family: system-ui, sans-serif; text-align: center; padding-top: 15%;">
+
+    <div style="background: white; max-width: 450px; margin: 0 auto; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+        <h2 style="color: #10b981; margin-bottom: 10px;">شكراً لثقتك بنا! 🎉</h2>
+        <p style="color: #64748b; font-size: 1.1rem; line-height: 1.6;">تم تسجيل بياناتك بنجاح.. جاري تحويلك الآن تلقائياً إلى الواتساب لتأكيد الأوردر.</p>
+        <div style="border: 4px solid #f3f3f3; border-top: 4px solid #10b981; border-radius: 50%; width: 35px; height: 35px; animation: spin 1s linear infinite; margin: 20px auto;"></div>
+    </div>
+
+    <style>
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const whatsappUrl = urlParams.get('next');
+            
+            if (whatsappUrl) {
+                setTimeout(() => {
+                    window.location.href = whatsappUrl;
+                }, 800); 
+            }
+        };
+    </script>
+</body>
+</html>
