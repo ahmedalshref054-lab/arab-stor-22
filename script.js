@@ -218,7 +218,8 @@ function handleFormSubmit(event) {
     let governorate = govSelect && govSelect.selectedIndex !== -1 ? govSelect.options[govSelect.selectedIndex].text : "غير محدد";
     
     // حساب الأسعار الجديدة لإرسالها بالرسالة
-    let originalPrice = count * 800;
+   // 🛠️ تعديل الحسبة المظبوطة لرسالة الواتساب
+    let originalPrice = count * 1000; // السعر الأصلي قبل الخصم (القطعة بـ 1000)
     let itemsPrice = (currentOfferMode === 'single') ? 800 : (1500 + ((currentQuantity - 2) * 750));
     let savings = originalPrice - itemsPrice;
     let shippingCost = 0; // شحن مجاني
