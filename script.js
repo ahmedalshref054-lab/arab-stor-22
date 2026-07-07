@@ -147,32 +147,24 @@ function selectSlotSize(slotIndex, sizeText, clickedButton) {
     calculateTotal();
 }
 
-// الحسابات الديناميكية وتحديث كارت الفاتورة
+// الحسابات الديناميكية وتحديث كارت الفاتورة (تم التحديث للأسعار المجانية والشحن الجديد)
 function calculateTotal() {
     let count = (currentOfferMode === 'single') ? 1 : currentQuantity;
     
-    let originalPrice = count * 760;
-    let itemsPrice = 730; 
+    // حساب السعر الأصلي الافتراضي بدون عروض (بناءً على 800 للقطعة)
+    let originalPrice = count * 800;
+    
+    let itemsPrice = 800; 
     if(currentOfferMode === 'multi') {
-        itemsPrice = 1400 + ((currentQuantity - 2) * 700);
+        // قطعتين بـ 1500، وأي قطعة زيادة بـ 750
+        itemsPrice = 1500 + ((currentQuantity - 2) * 750);
     }
     
     let savings = originalPrice - itemsPrice;
 
-    const govSelect = document.getElementById('client-governorate');
+    // شحن مجاني 100% لكل المحافظات بناءً على طلب العميل الجديد
     let shippingCost = 0;
-    let shippingText = "حدد المحافظة";
-
-    if (govSelect && govSelect.value) {
-        let selectedGov = govSelect.value;
-        if (selectedGov === 'القاهرة' || selectedGov === 'الجيزة') {
-            shippingCost = 70;
-            shippingText = "70 ج.م";
-        } else {
-            shippingCost = 100;
-            shippingText = "100 ج.م";
-        }
-    }
+    let shippingText = "شحن مجاني 🎉";
 
     let finalTotal = itemsPrice + shippingCost;
 
@@ -223,13 +215,13 @@ function handleFormSubmit(event) {
     let clientAddress = document.getElementById('client-address').value.trim();
     
     const govSelect = document.getElementById('client-governorate');
-    let governorate = govSelect.options[govSelect.selectedIndex].text;
+    let governorate = govSelect && govSelect.selectedIndex !== -1 ? govSelect.options[govSelect.selectedIndex].text : "غير محدد";
     
-    // حساب الأسعار لإرسالها بالرسالة
-    let originalPrice = count * 760;
-    let itemsPrice = (currentOfferMode === 'single') ? 730 : (1400 + ((currentQuantity - 2) * 700));
+    // حساب الأسعار الجديدة لإرسالها بالرسالة
+    let originalPrice = count * 800;
+    let itemsPrice = (currentOfferMode === 'single') ? 800 : (1500 + ((currentQuantity - 2) * 750));
     let savings = originalPrice - itemsPrice;
-    let shippingCost = (govSelect.value === 'القاهرة' || govSelect.value === 'الجيزة') ? 70 : 100;
+    let shippingCost = 0; // شحن مجاني
     let finalTotal = itemsPrice + shippingCost;
 
     // تجميع تفاصيل القطع والألوان والمقاسات
@@ -240,7 +232,7 @@ function handleFormSubmit(event) {
         itemsDetailsList.push(`   القطعة ${i}: [لون ${col} - مقاس ${siz}]`);
     }
 
-    // بناء نص رسالة الواتساب الاحترافية والمميزة
+    // بناء نص رسالة الواتساب الاحترافية والمميزة بالأرقام الجديدة
     let msg = "🛍️ *طلب جديد — عرب ستور* 🛍️\n\n" +
               "👤 *بيانات العميل المستلم*\n" +
               "• *الاسم بالكامل:* " + clientName + "\n" +
@@ -252,11 +244,11 @@ function handleFormSubmit(event) {
               "• الخيارات المحددة:\n" + itemsDetailsList.join("\n") + "\n\n" +
               "💰 *ملخص الحساب والدفع عند الاستلام*\n" +
               "• سعر القطع: " + itemsPrice + " ج.م بدلاً من " + originalPrice + " ج.م\n" +
-              "• مصاريف التوصيل: " + shippingCost + " ج.م\n" +
-              "• المبلغ الموفر للعميل: −" + savings + " ج.م 🎁\n" +
+              "• مصاريف التوصيل: شحن مجاني 🎁\n" +
+              (savings > 0 ? "• المبلغ الموفر للعميل: −" + savings + " ج.م 🎉\n" : "") +
               "• *الإجمالي النهائي المطلوب من المندوب: " + finalTotal + " ج.م*\n\n" +
               "⏳ برجاء مراجعة البيانات وتأكيد التجهيز الفوري للطلب للشحن.\n" +
-              "__أُرسلت تلقائياً من صفحة طقم بحر بسكوته__";
+              "__أُرسلت تلقائياً من صفحة طقم بحر ";
 
     // تشفير الرسالة وتجهيز رابط سيرفر الواتساب الرسمي
     let targetWhatsappUrl = "https://api.whatsapp.com/send?phone=" + WHATSAPP_NUMBER + "&text=" + encodeURIComponent(msg);
