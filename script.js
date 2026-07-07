@@ -4,7 +4,7 @@ const slidesRow = document.getElementById('slide-row');
 const slideNum = document.getElementById('slide-num');
 
 // 📞 رقم الواتساب الذي سيتم تحويل الطلبات عليه تلقائياً
-const WHATSAPP_NUMBER = "201069086119";
+const WHATSAPP_NUMBER = "201095222409";
 
 function moveSlide(direction) {
     currentSlide += direction;
@@ -251,14 +251,11 @@ function handleFormSubmit(event) {
               "__أُرسلت تلقائياً من صفحة طقم بحر ";
 
     // تشفير الرسالة وتجهيز رابط سيرفر الواتساب الرسمي
+// تشفير الرسالة وتجهيز رابط سيرفر الواتساب الرسمي
     let targetWhatsappUrl = "https://api.whatsapp.com/send?phone=" + WHATSAPP_NUMBER + "&text=" + encodeURIComponent(msg);
     
-    // 🆕 لقط رقم البيكسل اللي العميل حاطه في لينك الإعلان الرئيسي للموقع (إن وُجد)
-    const currentParams = new URLSearchParams(window.location.search);
-    const currentPixel = currentParams.get('pixel') || '';
-
-    // 🔀 التحويل الذكي لصفحة الـ Purchase مع تمرير رقم البيكسل ورابط الواتساب معاً كـ Parameters
-    window.location.href = `purchase.html?pixel=${currentPixel}&next=${encodeURIComponent(targetWhatsappUrl)}`;
+    // 🚀 التحويل المباشر والسرى للواتساب فوراً وبدون صفحة وسيطة بناءً على طلب العميل
+    window.location.href = targetWhatsappUrl;
 }
 
 // تشغيل البناء المبدئي عند اكتمال تحميل عناصر الصفحة بأمان
