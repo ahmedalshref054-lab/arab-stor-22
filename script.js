@@ -152,12 +152,12 @@ function calculateTotal() {
     let count = (currentOfferMode === 'single') ? 1 : currentQuantity;
     
     // حساب السعر الأصلي الافتراضي بدون عروض (بناءً على 800 للقطعة)
-    let originalPrice = count * 800;
+    let originalPrice = count * 700;
     
-    let itemsPrice = 800; 
+    let itemsPrice = 700; 
     if(currentOfferMode === 'multi') {
-        // قطعتين بـ 1500، وأي قطعة زيادة بـ 750
-        itemsPrice = 1500 + ((currentQuantity - 2) * 750);
+        // قطعتين بـ 1300 وأي قطعة زيادة بـ 650
+        itemsPrice = 1300 + ((currentQuantity - 2) * 650);
     }
     
     let savings = originalPrice - itemsPrice;
@@ -219,8 +219,8 @@ function handleFormSubmit(event) {
     
     // حساب الأسعار الجديدة لإرسالها بالرسالة
    // 🛠️ تعديل الحسبة المظبوطة لرسالة الواتساب
-    let originalPrice = count * 1000; // السعر الأصلي قبل الخصم (القطعة بـ 1000)
-    let itemsPrice = (currentOfferMode === 'single') ? 800 : (1500 + ((currentQuantity - 2) * 750));
+    let originalPrice = count * 700; // السعر الأصلي قبل الخصم (القطعة بـ 1000)
+    let itemsPrice = (currentOfferMode === 'single') ? 700 : (1300 + ((currentQuantity - 2) * 650));
     let savings = originalPrice - itemsPrice;
     let shippingCost = 0; // شحن مجاني
     let finalTotal = itemsPrice + shippingCost;
@@ -234,7 +234,7 @@ function handleFormSubmit(event) {
     }
 
     // بناء نص رسالة الواتساب الاحترافية والمميزة بالأرقام الجديدة
-    let msg = "🛍️ *طلب جديد — عرب ستور* 🛍️\n\n" +
+    let msg = "🛍️ *طلب جديد — يلا ساحل* 🛍️\n\n" +
               "👤 *بيانات العميل المستلم*\n" +
               "• *الاسم بالكامل:* " + clientName + "\n" +
               "• *رقم الهاتف:* " + clientPhone + "\n" +
